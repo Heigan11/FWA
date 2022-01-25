@@ -22,7 +22,7 @@ public class SignInServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        resp.getWriter().write("Hello!\n");
+        req.getRequestDispatcher("/WEB-INF/html/signIn.html").forward(req, resp);
     }
 
     @Override
