@@ -8,8 +8,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
-@WebServlet("/signIn")
-public class SignInServlet extends HttpServlet {
+@WebServlet("/signUp")
+public class SignUpServlet extends HttpServlet {
     @Override
     protected void service(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         super.service(req, resp);
@@ -22,18 +22,20 @@ public class SignInServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        req.getRequestDispatcher("/WEB-INF/html/signIn.html").forward(req, resp);
+        req.getRequestDispatcher("/WEB-INF/html/signUp.html").forward(req, resp);
     }
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        resp.setContentType("text/html");
+        String name = req.getParameter("name");
+        String surname = req.getParameter("surname");
+        String phone = req.getParameter("phone");
         String email = req.getParameter("email");
         String password = req.getParameter("password");
-        if (!email.isEmpty() && !password.isEmpty())
-            req.getRequestDispatcher("/WEB-INF/html/welcome.html").forward(req, resp);
+        if (!email.isEmpty() && !password.isEmpty() && !name.isEmpty() && !surname.isEmpty() && !phone.isEmpty())
+            req.getRequestDispatcher("/WEB-INF/html/registered.html").forward(req, resp);
         else
-            req.getRequestDispatcher("/WEB-INF/html/signIn.html").forward(req, resp);
+            req.getRequestDispatcher("/WEB-INF/html/signUp.html").forward(req, resp);
     }
 
     @Override
