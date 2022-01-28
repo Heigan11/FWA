@@ -1,2 +1,7 @@
+edu/school21/cinema/repositories/UserMapper.class
+edu/school21/cinema/models/User.class
 edu/school21/cinema/servlets/SignUpServlet.class
 edu/school21/cinema/servlets/SignInServlet.class
+edu/school21/cinema/config/SpringConfig.class
+edu/school21/cinema/repositories/UserDAO.class
+edu/school21/cinema/listners/ApplicationListener.class

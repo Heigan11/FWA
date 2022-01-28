@@ -1,5 +1,8 @@
 package edu.school21.cinema.config;
 
+import com.zaxxer.hikari.HikariConfig;
+import com.zaxxer.hikari.HikariDataSource;
+import edu.school21.cinema.repositories.UserDAO;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
@@ -39,5 +42,10 @@ public class SpringConfig {
     @Bean
     public JdbcTemplate jdbcTemplate() {
         return new JdbcTemplate(dataSource());
+    }
+
+    @Bean
+    public UserDAO userDAO(JdbcTemplate jdbcTemplate) {
+        return new UserDAO(jdbcTemplate());
     }
 }
