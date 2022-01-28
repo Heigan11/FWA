@@ -38,6 +38,7 @@ public class UserDAO {
 
     public void saveUser(User user) {
         try {
+
             String SQL = "insert into users(name, surname, phone, email, password) values (?, ?, ?, ?, ?)";
             jdbcTemplate.execute(SQL, (PreparedStatementCallback<Object>) ps -> {
                 ps.setString(1, user.getName());
