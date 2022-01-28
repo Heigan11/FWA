@@ -19,7 +19,6 @@ public class SignInServlet extends HttpServlet {
 
     @Override
     public void init(ServletConfig config) throws ServletException {
-
         springContext = (ApplicationContext) config.getServletContext().getAttribute("springContext");
     }
 

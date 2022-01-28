@@ -2,8 +2,10 @@ package edu.school21.cinema.repositories;
 
 import edu.school21.cinema.models.User;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DuplicateKeyException;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.jdbc.core.PreparedStatementCallback;
 import org.springframework.stereotype.Component;
 
 import javax.sql.DataSource;
@@ -28,9 +30,27 @@ public class UserDAO {
                 .stream().findAny().orElse(null);
     }
 
-    public void save(User user) {
-        jdbcTemplate.update("INSERT INTO users VALUES(?, ?, ?, ?, ?)",
-                user.getName(), user.getSurname(), user.getPhone(), user.getEmail(), user.getPassword());
+//    public void save(User user) {
+//
+//        jdbcTemplate.update("INSERT INTO users (?, ?, ?, ?, ?) VALUES",
+//                user.getName(), user.getSurname(), user.getPhone(), user.getEmail(), user.getPassword());
+//    }
+
+    public void saveUser(User user) {
+        try {
+            String SQL = "insert into users(name, surname, phone, email, password) values (?, ?, ?, ?, ?)";
+            jdbcTemplate.execute(SQL, (PreparedStatementCallback<Object>) ps -> {
+                ps.setString(1, user.getName());
+                ps.setString(2, user.getSurname());
+                ps.setString(3, user.getPhone());
+                ps.setString(4, user.getEmail());
+                ps.setString(5, user.getPassword());
+                return ps.execute();
+            });
+        }
+        catch (DuplicateKeyException e) {
+            System.out.println("Error during registration." + e.getMessage());
+        }
     }
 
     public void update(String email, User updatedUser) {
